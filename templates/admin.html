@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block title %}Admin{% endblock %}{% block body %}<main class="wide">
+{% if login %}<h2>Admin login</h2>{% if err %}<div class="err">{{ err }}</div>{% endif %}
+<form method="post" style="max-width:420px"><label for="password">Password</label><input type="password" id="password" name="password" required autofocus><p><button>Log in</button></p></form>
+{% else %}<h2>Document portal: {{ {'closed':'closed','open':'open','submitted':'documents received'}[s.status] }}</h2>
+{% if s.status == 'closed' %}<form method="post" action="/admin/open" class="box" style="max-width:480px">
+<label for="customer">Customer name</label><input type="text" id="customer" name="customer" required>
+<label for="minutes">Auto-close after (minutes)</label><input type="number" id="minutes" name="minutes" value="{{ mins }}" min="5" max="240">
+<p><button>Open portal</button></p></form>
+{% elif s.status == 'open' %}<div class="box"><p>Waiting for <strong>{{ s.customer }}</strong>. The portal closes automatically at {{ s.expires[11:16] }} UTC.</p>
+<form method="post" action="/admin/close"><button class="danger">Close now</button></form></div>
+{% else %}<div class="box"><p><strong>{{ s.name }}</strong> · {{ s.email }}</p>
+{% for key, fn in s.files.items() %}<div class="row"><span>{{ labels[key] }}</span>
+{% if fn.endswith(('jpg','jpeg','png')) %}<img src="/admin/file/{{ key }}" alt="">{% endif %}<a class="btn ghost" href="/admin/file/{{ key }}?dl=1">Download</a></div>{% endfor %}
+<form method="post" action="/admin/confirm" style="margin-top:18px" onsubmit="return confirm('Delete all files from the server? This cannot be undone.')">
+<button class="danger">Confirm downloaded and delete</button></form>
+<p class="hint">Files are deleted automatically {{ hours }} hours after submission.</p></div>{% endif %}
+<script>const cur="{{ s.status }}";setInterval(async()=>{try{const r=await fetch('/admin/status');if(r.ok&&(await r.json()).status!==cur)location.reload()}catch(e){}},5000)</script>
+{% endif %}</main>{% endblock %}

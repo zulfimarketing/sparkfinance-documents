@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block hero %}<section class="hero"><div class="wrap"><div class="tag">SECURE UPLOAD</div>
+{% if done %}<h1>Documents received</h1><p>Thank you. We have your documents and will be in touch shortly. This link is now closed.</p>
+{% elif not is_open %}<h1>This link has expired</h1><p>For security, upload links work once. Please contact us if you still need to send documents.</p>
+{% else %}<h1>Upload your documents</h1><p>To proceed with your loan application, please upload the following documents. We will then proceed with the best lender.</p>{% endif %}</div></section>{% endblock %}
+{% block body %}{% if is_open and not done %}<main>
+{% if error %}<div class="err">{{ error }}</div>{% endif %}
+<form id="f" method="post" enctype="multipart/form-data">
+{% for key, label, kind, req in fields %}<label for="{{ key }}">{{ label }}{% if not req %} <span class="opt">(optional)</span>{% endif %}</label>
+{% if kind == 'file' %}<input type="file" id="{{ key }}" name="{{ key }}" accept=".pdf,.jpg,.jpeg,.png" {{ 'required' if req }}>{% else %}<input type="{{ kind }}" id="{{ key }}" name="{{ key }}" required>{% endif %}{% endfor %}
+<p class="hint">Files: PDF, JPG or PNG, up to 10 MB each.</p>
+<p><button type="button" id="rv">Review documents</button></p>
+<div class="box" id="box" hidden><strong>Check your details</strong><ul id="list"></ul><p class="hint">After you submit, this link closes and you cannot upload again.</p>
+<button type="submit">Submit documents</button> <button type="button" class="ghost" id="back">Change details</button></div></form>
+<script>
+const f=document.getElementById('f'),box=document.getElementById('box');
+document.getElementById('rv').onclick=()=>{if(!f.reportValidity())return;const l=document.getElementById('list');l.innerHTML='';
+f.querySelectorAll('input').forEach(i=>{const t=i.type==='file'?i.files[0]:{name:i.value,size:0};if(!t||!t.name)return;
+const li=document.createElement('li');li.textContent=f.querySelector('label[for='+i.id+']').childNodes[0].textContent.trim()+': '+t.name+(t.size?' ('+(t.size/1048576).toFixed(1)+' MB)'+(t.size>10485760?' – too large':''):'');l.appendChild(li)});
+box.hidden=false;box.scrollIntoView({behavior:'smooth'})};
+document.getElementById('back').onclick=()=>box.hidden=true;
+</script></main>{% endif %}{% endblock %}

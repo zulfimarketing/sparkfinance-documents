@@ -1,0 +1,33 @@
+{% macro logo(c, w=150) %}<svg width="{{ w }}" viewBox="0 0 150 40" role="img" aria-label="Spark"><defs><linearGradient id="g{{ loop_id|default('') }}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1aa0e8"/><stop offset="1" stop-color="#0a3f78"/></linearGradient></defs>
+<circle cx="20" cy="20" r="18" fill="{{ '#fff' if c == '#fff' else 'url(#g)' }}"/><path d="M23.5 8 13 22h7l-3 10 11-15h-7z" fill="{{ '#04122b' if c == '#fff' else '#fff' }}"/>
+<text x="46" y="29" font-family="Montserrat,Arial,sans-serif" font-weight="800" font-size="28" fill="{{ c }}">Spark.</text></svg>{% endmacro %}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive"><title>{% block title %}Secure document upload{% endblock %} | Spark Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0f4c81;--ink:#1f2a44;--mute:#6b7280;--line:#dbe3ee;--dark:#00122a;--dt:#8fa0b8}
+*{box-sizing:border-box}body{margin:0;font-family:Montserrat,Arial,sans-serif;color:var(--ink);line-height:1.6}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}.top{padding:18px 0}
+.bar{background:#0a5285;color:#fff;font-size:11px;font-weight:600;padding:12px 0}
+.hero{background:radial-gradient(circle at 0 60%,#0b4a7a 0,rgba(11,74,122,0) 38%),var(--dark);color:#fff;padding:56px 0 60px}
+.tag{border-left:6px solid #1a8fd0;padding-left:10px;font-size:13px;font-weight:600;letter-spacing:.1em;margin-bottom:18px}
+.hero h1{font-size:clamp(28px,4.5vw,44px);font-weight:500;line-height:1.2;margin:0 0 16px}.hero p{max-width:560px;color:#cdd8e6;font-size:17px;margin:0}
+main{max-width:640px;margin:0 auto;padding:36px 20px 56px}main.wide{max-width:1120px}
+label{display:block;font-weight:600;margin:20px 0 6px}.opt{font-weight:400;color:var(--mute)}
+input[type=file],input[type=text],input[type=email],input[type=number],input[type=password]{width:100%;padding:12px;border:1px solid var(--line);border-radius:6px;font:inherit}
+.hint{font-size:13px;color:var(--mute)}button,.btn{display:inline-block;background:var(--blue);color:#fff;border:2px solid var(--blue);border-radius:6px;padding:12px 22px;font:600 15px Montserrat,Arial;cursor:pointer;text-decoration:none}
+.ghost{background:#fff;color:var(--blue)}.danger{background:#fff;color:#a12626;border-color:#a12626}:focus-visible{outline:3px solid #6aa7e0;outline-offset:2px}
+.box{border:1px solid var(--line);border-radius:8px;padding:18px;margin-top:24px}.err{background:#fdecec;color:#8a1f1f;padding:12px 14px;border-radius:6px;margin-bottom:16px}
+h2{font-size:28px;font-weight:500;margin:0 0 8px}.row{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.row img{height:48px;border-radius:4px}footer{background:var(--dark);color:var(--dt);font-size:13px;padding:40px 0 28px}
+footer a{color:var(--dt)}footer hr{border:0;border-top:1px solid #16264a;margin:22px 0}.fl{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.in{display:inline-grid;place-items:center;width:32px;height:32px;border:1px solid #2a3b5c;border-radius:50%;font-weight:800;font-size:11px;margin-top:14px;color:var(--dt);text-decoration:none}
+</style></head><body>
+<div class="wrap top">{{ logo('#1f2a44') }}</div>
+<div class="bar"><div class="wrap">FCA AUTHORISED · FRN 958123</div></div>
+{% block hero %}{% endblock %}
+{% block body %}{% endblock %}
+<footer><div class="wrap">{{ logo('#fff', 120) }}<p>18 John Stow House<br>London, EC3A 7JB</p><a class="in" href="#" aria-label="LinkedIn">in</a><hr>
+<p>Disclaimer: Spark Finance Ltd (Registered office - 18 John Stow House, London, England, EC3A 7JB. Registered Number 10128297) helps UK firms access business finance. Spark is a credit broker, not a lender. Any quotes provided are for information purposes only and subject to status and separate lender terms and conditions. Applicants must be aged 18 and over. Guarantees and indemnities may be required. Spark Finance may receive commission from lenders which may vary depending on the lender, product, or other permissible factors. The nature of any commission model will be confirmed to you before you proceed.</p>
+<p>Spark Finance Ltd is authorised and regulated by the Financial Conduct Authority in the UK (<a href="#">FRN 958123</a>).</p><hr>
+<div class="fl"><span><a href="#">Privacy Policy</a> &nbsp; <a href="#">Terms of Use</a> &nbsp; <a href="#">Contact Us</a></span><span>© 2026 Spark Finance Ltd All Rights Reserved</span></div></div></footer></body></html>
